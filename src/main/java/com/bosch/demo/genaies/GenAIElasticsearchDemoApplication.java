@@ -22,6 +22,7 @@ public class GenAIElasticsearchDemoApplication {
 		System.setProperty("https.proxyPort", String.valueOf(proxySettings.getPort()));
 
 		ElasticsearchHealthAssistant elasticsearchHealthAssistant = app.getBean(ElasticsearchHealthAssistant.class);
+		log.info("ElasticsearchHealthAssistant has started.");
 		OutputData output = elasticsearchHealthAssistant.checkClusterHealth();
 		log.info(output.getOutput());
 	}

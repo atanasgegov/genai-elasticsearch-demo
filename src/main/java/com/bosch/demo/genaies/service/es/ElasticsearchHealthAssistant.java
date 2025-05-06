@@ -62,21 +62,21 @@ public class ElasticsearchHealthAssistant {
      */
 	private OutputData checkClusterHealth(AIPrompt aiPrompt) {
 
-		InOutData hotThreadsData = null;
-		InOutData clusterHealthData = null;
-		InOutData nodeStatsData = null;
+		InOutData hotThreadsAnalysis = null;
+		InOutData clusterHealthAnalysis = null;
+		InOutData nodeStatsAnalysis = null;
 		try {
-			hotThreadsData = RequestAnalyzerAIAssistant.<JsonObject>builder()
+			hotThreadsAnalysis = RequestAnalyzerAIAssistant.<JsonObject>builder()
 											.request(HotThreadRequest.builder().restClient(restClient).build())
 											.prompt(aiPrompt)
 											.build().execute();
 
-			clusterHealthData = RequestAnalyzerAIAssistant.<JsonObject>builder()
+			clusterHealthAnalysis = RequestAnalyzerAIAssistant.<JsonObject>builder()
 											.request(ClusterHealthRequest.builder().elasticsearchClient(elasticsearchClient).build())
 											.prompt(aiPrompt)
 											.build().execute();
 	
-			nodeStatsData = RequestAnalyzerAIAssistant.<JsonObject>builder()
+			nodeStatsAnalysis = RequestAnalyzerAIAssistant.<JsonObject>builder()
 										.request(NodesStatsRequest.builder().elasticsearchClient(elasticsearchClient).build())
 										.prompt(aiPrompt)
 										.build().execute();
@@ -88,7 +88,12 @@ public class ElasticsearchHealthAssistant {
 					.build();
 		}
 
-		String message = String.format("AI Checks: %s Hot Threads : %s, %s Cluster Health: %s, %s Node Stats: %s", System.lineSeparator(), hotThreadsData, System.lineSeparator(), clusterHealthData, System.lineSeparator(), nodeStatsData);
+		String message = String.format( "%s %s" +
+			    "%s %s" +
+			    "%s %s", 
+				hotThreadsAnalysis, System.lineSeparator(), 
+				clusterHealthAnalysis, System.lineSeparator(), 
+				nodeStatsAnalysis, System.lineSeparator());;
 		
 		return OutputData.builder()
 				.output(message)

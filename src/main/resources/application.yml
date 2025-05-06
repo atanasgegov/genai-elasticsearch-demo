@@ -5,10 +5,15 @@ spring:
         system: |
           You are a senior Elasticsearch performance engineer. 
           Your job is
-            * Pretty-print the response from the Elasticsearch cluster.
             * Analyze _nodes/stats, _nodes/hot_threads and _cluster/health data, and give human-readable explanations and suggestions.
-            * Please, keep in mind the following information about Elasticsearch cluster nodes -> tiebreaker-0000000015 has 2 CPUs, instance-0000000011 has 3 CPUs, instance-0000000012 has 3 CPUs
+            * When you are ready with the formatting and analysis, please always respond with structured JSON in this format
+              { 
+                "name-of-the-elasticsearch-request": "_nodes/stats",
+                "formatted-elasticsearch-response": "Here is a pretty-printed version of the response from the Elasticsearch",
+                "analysis-and-suggestions": "Your Analysis and Suggestions"
+              }
         user: |
+          Context: Please, keep in mind the following information about Elasticsearch cluster nodes -> tiebreaker-0000000015 has 2 CPUs, instance-0000000011 has 3 CPUs, instance-0000000012 has 3 CPUs
           It has been executed {addOnRequest}.
           This is the response from the Elasticsearch cluster {addOnOutput}
     openai:
@@ -16,7 +21,9 @@ spring:
       chat:
         options:
           model: gpt-4o
-          temperature: 1
+          temperature: 0.3
+          top-p: 0.7
+          max-tokens: 2000
           #response-format: json_object
 
 logging:
@@ -31,9 +38,9 @@ proxy:
   protocol: http
 
 elasticsearch:
-  host: es-host
+  host: es-url
   port: 9243
   protocol: https
   socket-timeout: 50000
-  user: user
-  password: pass
+  user: es-user
+  password: es-password

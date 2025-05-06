@@ -19,13 +19,16 @@ public class SpringAIPrompt implements AIPrompt {
 			    "addOnRequest", promptContext.getAddOnRequest(),
 			    "addOnOutput", promptContext.getAddOnOutput()
 			);
-		
-        var response = chatClient.prompt()
+
+		var response = chatClient.prompt()
                 .user(up -> up.params(params))
                 .call();
+                //.entity(LLMResponse.class);
         
-		String genAiInput = String.format("User params -> %s", params);
-		String genAiOutput = String.format("Assistant response -> %s", response.content());
+		String genAiInput = String.format("%s", params);
+		String genAiOutput = String.format("%s", response.content());
+		//String genAiOutput = String.format("%s", response.toString());
+		
         
 		return new InOutData(genAiInput, genAiOutput);
     }
