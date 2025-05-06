@@ -17,14 +17,13 @@ spring:
           It has been executed {addOnRequest}.
           This is the response from the Elasticsearch cluster {addOnOutput}
     openai:
-      api-key: xyz
+      api-key: ${OPENAI_API_KEY}
       chat:
         options:
           model: gpt-4o
           temperature: 0.3
           top-p: 0.7
           max-tokens: 2000
-          #response-format: json_object
 
 logging:
   level:
@@ -33,14 +32,14 @@ logging:
 
 proxy:
   enabled: true
-  host: localhost
-  port: 3128
+  host: ${PROXY_HOST}
+  port: ${PROXY_PORT}
   protocol: http
 
 elasticsearch:
-  host: es-url
+  host: ${ES_HOST}
   port: 9243
   protocol: https
   socket-timeout: 50000
-  user: es-user
-  password: es-password
+  user: ${ES_USER}
+  password: ${ES_PASSWORD}
