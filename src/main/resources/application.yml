@@ -13,7 +13,7 @@ spring:
                 "analysis-and-suggestions": "Your Analysis and Suggestions"
               }
         user: |
-          Context: Please, keep in mind the following information about Elasticsearch cluster nodes -> tiebreaker-0000000015 has 2 CPUs, instance-0000000011 has 3 CPUs, instance-0000000012 has 3 CPUs
+          Context: Please, keep in mind the following information about Elasticsearch cluster nodes ->  has 2 CPUs,  has 3 CPUs,  has 3 CPUs
           It has been executed {addOnRequest}.
           This is the response from the Elasticsearch cluster {addOnOutput}
     openai:
